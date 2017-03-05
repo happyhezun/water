@@ -6,7 +6,13 @@ def encryption(password):
     hash_md5 = hashlib.md5(password)
     return hash_md5.hexdigest()
 
+def check_account_exists(filepath):
+    return os.path.exists(filepath)
+        
 def check_user_exists(username):
+    if not check_account_exists('./account.txt'):
+        print 'first start app, skip check_user_exists func...'
+        return
     all_username = []
     f = open('account.txt', 'r')
     for user_info in f.readlines():
