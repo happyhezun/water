@@ -1,3 +1,0 @@
-DocumentRoot /var/www/html
-↓
-DocumentRoot /usr/share/redmine/public

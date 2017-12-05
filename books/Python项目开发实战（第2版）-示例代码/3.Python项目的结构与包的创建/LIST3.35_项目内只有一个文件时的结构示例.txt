@@ -1,5 +1,0 @@
-/home/bpbook/projectname
-   +-- MANIFEST.in
-   +-- README.rst
-   +-- packagename.py
-   +-- setup.py

@@ -1,6 +1,0 @@
-- hosts: gateway
-  sudo: yes
-  roles:
-    - environ
-    - python
-    - ansible
