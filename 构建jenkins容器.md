@@ -29,3 +29,7 @@ docker commit 2413ae0e7a74 hezun/my-jenkins:v1
 运行容器：
 
 docker run -d -p 1234:8080 --name jenkins-ci hezun/my-jenkins:v1 /etc/init.d/ssh start -D
+
+进入一个容器：
+
+docker exec -ti 9d7cebd75dcf /bin/bash
