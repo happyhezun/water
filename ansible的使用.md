@@ -1,4 +1,4 @@
-### ansible基础初试 ###
+### ansible初试 ###
 
 在centos6上安装ansible：  
 yum install gcc glibc-devel zlib-devel  rpm-build openssl-devel –y  
