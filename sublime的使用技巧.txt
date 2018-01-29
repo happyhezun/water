@@ -1,0 +1,6 @@
+安装
+你可以通过 Package Control （包管理）安装：
+
+按 ctrl/command + shift + p 调出命令面板；
+
+输入 install package 并按回车，之后搜索 ayu 安装即可。
