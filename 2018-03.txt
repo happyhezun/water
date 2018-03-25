@@ -1,0 +1,12 @@
+ssh 远程登陆报错：
+Permission denied (publickey,gssapi-keyex,gssapi-with-mic)
+解决方法：
+vi /etc/ssh/sshd_config
+PasswordAuthentication yes
+然后重启sshd服务。
+
+centos7环境下查看ssd服务状态：
+systemctl list-unit-files|grep ssh
+centos7环境下重启sshd服务：
+systemctl restart sshd.service
+
