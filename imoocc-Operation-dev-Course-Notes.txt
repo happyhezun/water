@@ -1,0 +1,92 @@
+整体工程的设计
+
+资产扫描发现
+资产信息(硬件信息、sn、mac、系统版本)
+ansible的ad-hoc和playbook实现批量主机的自动化任务
+
+git clone https://github.com/iopsgroup/imoocc
+
+pip install -r ./require.txt
+
+mysql\redis\mongodb
+
+[client]
+default-character-set=utf8
+
+[mysqld]
+character-set-server=utf8
+collation-server=utf8_general_ci
+
+create database imoocc;
+
+grant all on imoocc.* to imoocc@'%' identified by '123456';
+flush privileges;
+
+vim admin/settings/settins.py
+
+/opt/python2.7/python ./manage.py migrations
+/opt/python2.7/python ./manage.py migrate
+
+/opt/python2.7/python ./manage.py runserver 0.0.0.0:9000
+
+多思考、多总结、多尝试。
+Ipython
+自动补全、历史记录、获取对象。
+
+pip install ipython
+
+aa = "ooo"
+? aa
+
+def aa():
+    print "hi aa"
+
+? aa
+?? aa
+
+Number(数字)、String(字符串)、List(列表)、Dictionary(字典)、
+Tuple(元组)、Bool(布尔)
+a = 11 整数
+aa = 13123.213 浮点数
+字符串默认是ascci编码
+
+aa = u'1ds21' unicode编码
+type(aa)
+
+列表类型
+aa = [1, 2, 3, 4, 5, 6]
+列表的切片：
+aa[3]
+添加元素
+aa.apend(6)
+
+元组类型
+aa = (1, 2, 3, 4, 5, 6)
+不可变类型
+元组类似的用途：定义一些不可变的值，存储的速度比列表快。
+
+字典
+mydic = {"a1":11}
+键值对关系，根据键取对应的值。
+mydic['a1']
+mydic.values() 返回字典里所有的值
+mydic.keys() 返回所有的键
+
+值是可变的、存储速度比列表快。
+
+布尔类型
+mydic.has_key("a1") 判断键是否存在。
+逻辑判断比较运算符中返回布尔类型、方便逻辑判断。
+
+变量赋值
+赋值符号 = 
+变量名必须是大小写
+
+基本语句：
+条件判断
+while循环(使用比较少)
+for循环、迭代器
+range(0,10) 返回的是一个列表。
+for i in range(0, 10):
+    print i
+迭代器，迭代对象。
