@@ -90,3 +90,66 @@ range(0,10) 返回的是一个列表。
 for i in range(0, 10):
     print i
 迭代器，迭代对象。
+
+break\continue
+
+for i in range(0, 10):
+    if i == 5:
+	    break
+	print i
+
+for i in range(0, 10):
+    if i == 5:
+	    continue
+	print i
+	
+迭代器
+
+迭代操作(用于for循环遍历的对象)
+
+集合数据类型(列表、元组、字符串、数值)
+迭代器
+迭代器还可以被next()函数调用并不断返回下一个值的对象
+
+aa = [1, 2, 3, 4, 5, 6]
+for i in aa:
+    print i
+
+al = iter(aa)
+? al
+al.next()
+
+迭代器的作用: 读取大的文件，一部分一部分的读取，不会占用系统过多的资源。
+
+生成器
+
+生成器本质上还是一个迭代器
+用关键字yield来返回值(通常是使用return返回值)
+
+def testgen(n):
+    yield n+2
+	
+tg = testgen(5)
+
+tg 生成器对象
+
+tg.next() 调用生成器
+
+列表解析与生成器表达式
+一个非常有用，简单，而且灵活的工具，可以用来动态地创建列表
+
+aa = [1, 2, 3, 4, 5]
+列表解析
+[ item+2 for item in aa ]
+
+生成器表达式
+( item+2 for item in aa )
+nna = ( item+2 for item in aa )
+nna.next() 不断调用
+
+函数式编程
+函数是对程序进行结构化的一种编程手法
+变量、函数体、返回值、传入参数
+函数调用，后台任务的执行。
+
+匿名函数：
