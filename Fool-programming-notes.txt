@@ -1,0 +1,18 @@
+html由标签组成：
+常用的大概有10种
+div
+<div></div>
+开始标签 结束标签
+
+<div class="large">
+content
+</div>
+class 把正确的样式加载给html标签。
+
+<a herf='z.cn'> Amazon </a>
+herf 点击元素链接到其他的网址
+
+<div><h1></h1><div>
+标签嵌套(告诉浏览器不同的区域是做什么用的)
+
+header content footer

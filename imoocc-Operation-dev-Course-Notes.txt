@@ -153,3 +153,23 @@ nna.next() 不断调用
 函数调用，后台任务的执行。
 
 匿名函数：
+匿名是因为不需要以标准的方式来声明，如使用def语句
+
+a = lambda x, y: x+y
+?a
+a(20, 40)
+
+正则表达式
+
+正则表达式的符号
+import re
+
+re.search 全局对象整个的查找
+
+re.search("abc", "123abcyul")
+re.search("a.c", "123a2cyul")
+
+re.match("[0-9]{3}a.c", "123a2cyul") match 从头开始找
+
+re.match("[0-9]{3}(a.c)", "123a2cyul").groups()
+re.match("[0-9]{3}(a.c)", "123a2cyul").group(0)
