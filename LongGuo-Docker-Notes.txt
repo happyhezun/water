@@ -1,0 +1,31 @@
+容器是基于内核的
+namespace、cgroup 资源划分独立的组，解决资源争用的冲突问题，直接在核心cpu上运行指令
+
+容器=cgroup+namespace+联合文件系统+容器引擎(libcontainer)
+
+镜像的生命周期
+
+去镜像市场下载镜像
+www.daocloud.io
+docker pull daocloud.io/library/nginx:1.10.1
+
+镜像的标签
+docker tag test:0.1 test:0.2
+
+查看镜像的
+docker inspect 16666ff3a57f(镜像id)
+
+启动一个容器
+docker run -dit -P 16666ff3a57f(镜像id)
+
+镜像的导出
+docker save -o 16666ff3a57f.tar 16666ff3a57f
+
+镜像的导入：
+docker load < 16666ff3a57f.tar
+
+创建镜像
+docker commit  -m "ADD test.txt" -a "xiaoluo" 16666ff3a57f(容器id)
+
+对镜像的修改都使用Dockerfile方式提交、方便对镜像生命周期的管理  
+
