@@ -27,5 +27,35 @@ docker load < 16666ff3a57f.tar
 创建镜像
 docker commit  -m "ADD test.txt" -a "xiaoluo" 16666ff3a57f(容器id)
 
-对镜像的修改都使用Dockerfile方式提交、方便对镜像生命周期的管理  
+对镜像的修改都使用Dockerfile方式提交、方便对镜像生命周期的管理
 
+进入容器
+docker -it 16666ff3a57f(容器id) /bin/bash
+
+停止容器
+docker stop 16666ff3a57f(容器id)
+
+删除容器
+docker rm 16666ff3a57f(容器id)
+
+启动一个容器
+docker create 16666ff3a57f(镜像id)
+
+启动一个容器
+docker run -d nginx
+
+容器随机映射端口
+docker run -d --name web -P nginx
+
+容器指定映射端口
+docker run -d --name web -p 80:8080 nginx
+
+容器必须要有一个进程在前台运行才不会退出，比如写 top、tail -f 文件、或者写一个while循环
+
+同台主机上的docker可以互相访问，所有docker容器的eth0网卡通过docker0虚拟网桥连接
+容器可以访问外部网络,MASQUERADE操作伪装成docker主机的网卡出外网
+iptables -L -t nat -n
+容器的端口映射是iptable做的DNAT操作
+iptable -L -n -t nat
+
+容器通信 --link

@@ -173,3 +173,257 @@ re.match("[0-9]{3}a.c", "123a2cyul") match 从头开始找
 
 re.match("[0-9]{3}(a.c)", "123a2cyul").groups()
 re.match("[0-9]{3}(a.c)", "123a2cyul").group(0)
+
+为什么要选择Django
+一站式的解决方案(ORM、Session、Admin等)
+成熟的Python WEB框架(Django社区、丰富的模块、稳定)
+官方文档：
+
+Django工程的结构和建立
+
+mydevops 一个容器项目
+scanhosts 应用项目
+
+一个容器项目可以建立多个应用项目
+容器项目没有实质的作用
+
+安装django 1.8.2
+pip install django == 1.8.2
+容器项目
+python-path/django-admin startproject mydevops
+manage.py 管理工具
+url.py 对url的路由
+
+建立应用项目
+./manage.py startapp scanhosts
+
+settings.py
+
+INSTALLED_APPS 中加入scanhosts
+
+配置数据库：
+
+set paste
+
+orm模型、对象关系映射
+操作模型是操作对应的表格
+
+create database mydevops
+grant all on mydevops.* to admin@'%' identified by 'mysqlpass'
+flush privileges
+
+model模型：
+
+CharField 字符串字段
+IntegerField 整数型字段
+DateTimeField 时间日期字段
+ForeignKey 定义多对一关系
+
+模型转化为对应的sql语句建立起数据库对应的表格
+定义模型—> makemigrations(迁移文件)-> migrate(sql) -> 数据库
+
+python_path ./manage.py makemigrations
+python_path ./manage.py migrate
+
+登录数据库验证表
+desc table 查看字段类型
+
+采集接口：
+用户的ip信息
+user -> 采集接口->model->mysql
+user <- 信息接口 <- model <- mysql
+
+view : mvc 里的逻辑控制
+
+接口：
+采集接口
+http://127.0.0.1/sendinfos user_info
+
+views.py
+from django.http import JsonResponse, HttpResponse
+from models import *
+import json
+
+def user_info(request):
+    print request.META
+    ip_addr = request.META['REMOTE_ADDR']
+    user_ua = request.META['HTTP_USER_AGENT']
+    user_obj = UserIPInfo.object.filter(ip = ip_addr)
+
+    if not user_obj:
+        res = UserIPInfo.object.create(ip = ip_addr):
+        ip_add_id = res.id
+    else:
+        ip_add_id = user_obj[0].id
+    BrowseInfo.objects.create(useragent = user_ua, userip_id =  ip_add_id)
+
+    result = {
+        "STATUS": "success",
+        "INFO": "User info",
+        "IP": ip_addr,
+        "UA": user_ua
+    }
+    return  HttpResponse(json.dumps(result), content_type="application/json")
+
+
+命令行调试django项目
+python_path ./manage.py shell
+from scanhosts.models import UserIPInfo
+for item in UserIPInfo.objects.all():
+    print item.__dict__
+
+
+信息接口
+
+http://127.0.0.1/getinfos user_history
+
+url.py 配置
+
+from scanhosts.views import *
+
+url(r'^getinfos/$', user_history),
+url(r'^sendinfos/$', user_info),
+
+views.py 添加信息接口
+
+def user_history(request):
+    ip_list = UserIPInfo.object.all()
+    infos = {}
+    for item ip in  ip_list:
+        infos[item.ip] = [b_obj.useragent for b_obj in BrowseInfo.objects.filter(userip_id = item.id)]
+        #列表解析
+    result = {
+        "STATUS": "success",
+        "INFO": infos,
+    }
+    return HttpResponse(json.dumps(result), content_type="application/json")
+    
+
+验证请求
+http:127.0.0.1:8000/getinfos/
+
+Django日志logging模块
+
+logger ------> handler(真正的日志处理器，写文件还是发送email) ---(formatter(日志格式)|filter(过滤器))---> files, emails 
+日志记录器、处理器、格式器、过滤器
+
+项目添加日志功能
+
+配置settings.py
+定义 LOGGING 配置
+
+程序端views.py的调用
+import logging
+logger = logging.getLogger("django")
+
+logger.info("%s already exists" % ip_addr)
+
+Common Web application tools
+
+发送邮件:
+django邮件发送配置
+服务端：开启smtp协议支持
+客户端：配置setting文件
+
+EMAIL_HOST = "smtp.163.com"
+EMAIL_HOST_USER = "ABC@163.com"
+EMAIL_HOST_PASSWORD = "ABC"
+EMAIL_USE_TLS = False
+
+服务端开启smtp、登录163邮箱，查看邮箱的服务端地址。
+测试使用
+python_path ./manage.py shell
+
+from django.core.mail import send_mail
+
+send_mail('DevOPS Mail', 'Here is the message.', 'renaizhu@163.com', ['iaskjob@163.com'], fail_silently=False)
+返回值为1
+
+util/tools.py 封装邮件发送功能
+
+from django.core.mail import send_mail
+import time
+
+class sendmail():
+    def __init__(self, receive_addr, sub_info, content_info):
+        sub_data = time.strftime("%Y-%m-%d_%H:%M:%S", time.localtime())
+        self.receive_addr = receive_addr
+        self.sub_info = sub_info + sub_data
+        self.content_info = content_info
+
+    def send(self):
+        try:
+            send_mail(
+                subject = self.sub_info,
+                message = self.content_info,
+                from_email = 'renaizhu@163.com',
+                fail_silently = False,
+            )
+            return True
+        except Exception as e:
+            print e
+            return False
+
+from scanhosts.util.tools import sendmail
+sendm = sendmail(receive_-addr=['iaskjob@163.com'], sub_info="OP DEV", content_info='test')
+sendm.send()
+
+后台服务
+models、urls、视图层
+自动化扫描发现、model对数据库的操作。
+
+settings.py的多个环境配置
+manage.py
+
+if __name__ == '__main__':
+    if len(sys.argv) > 3:
+        run_args = sys.argv[2]
+        if not run_args.startswith('--settings'):
+            os.environ.setdefault("DJANGO_SETTINGS_MODULE", "admin.settings.settings")
+    else:
+        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "admin.settings.settings")
+
+
+setting.py 中配置项目加载应用
+sys.path.insert(0, os.path.join(BASE_DIR, "apps"))
+sys.path.insert(0, os.path.join(BASE_DIR, "extra_apps"))
+print 'sys.path ......', sys.path
+
+模块 资产信息展示表 detail ConnectionInfo、NetConnectionInfo、PhysicalServerInfo、VirtualServerInfo、OtherMachineInfo、NetWorkInfo
+资产信息探测表 scanhosts HostLoginfo
+
+资产管理是自动化运维平台的构建基础
+
+资产 - > 依赖资产(服务部署、监控系统、自动化任务执行)
+技术实现
+资产信息的手工录入（工作量大）
+客户端主动上报（需要大量的开发人员、不同的平台的定制）
+服务端的扫描发现（探测通用的协议，调用对应的接口协议进行扫描和发现）
+
+优势
+整理实现方便、高效
+后期维护方便
+
+劣势
+不符合标准的服务（代码庞大，性能低下）
+
+抽象与约定
+内网主机类型(centos6-7、ubuntu12、14)
+系统内部开通ssh服务端口为Linux服务器
+linux系统开放ssh端口范围(22、20022、202)
+安全规则(开放允许探测协议和登录的限制)
+网络设备都开通了snmp服务，且community都已经统一
+
+虚拟机不再运行容器等虚拟资产
+网络设备（cisco系列）
+
+探测流程
+存活探测 - > 获取存活的IP列表
+主机探测 - > 获取系统信息(SN、版本、MAC) 利用ssh 
+那些是服务器、那些是网络设备、登录服务器获取信息。
+主机关系探测 —> 识别宿主机与虚机的关系
+网络设备的探测 -> 探测网络设备的信息(SN、设备名等)
+其他设备(人工确认)
+
+存活探测：
+探测协议（icmp 无连接 网络探测、网络质量(tracert、traceroute) \tcp 有连接 应用服务(更加稳定)）
