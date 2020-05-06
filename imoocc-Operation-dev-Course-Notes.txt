@@ -427,3 +427,36 @@ linux系统开放ssh端口范围(22、20022、202)
 
 存活探测：
 探测协议（icmp 无连接 网络探测、网络质量(tracert、traceroute) \tcp 有连接 应用服务(更加稳定)）
+
+探测模块和工具
+nmap-是一款用于网络发现和安全审计的网络安全工具，它是自由软件
+
+pip install python-nmap==0.6.1
+
+yum install nmap
+-n 不对ip反解析
+-sP 发送icmp echo形式，比ping命令的效率高，只有一个数据包。
+-PE 探测主机端口
+
+nmap -n -sP -PE 192.168.1.0/24
+临时对liunx主机禁ping
+
+
+import nmap
+nm = nmap.PortScanner()
+nm.scan(hosts="192.168.1.0/24", arguments="-n -sP -PE")
+开始执行
+获取存活的主机列表
+nm.all_hosts()
+
+ssh端口存活扫描
+判断主机列表是否属于Linux服务器
+telnet命令
+telnetlib模块
+
+import telnetlib
+telnetlib.Telnet(host='192.168.1.101', port='22', timeout=4)
+tm.read_until("\n", timeout=5)
+
+import re
+re.search('ssh',tm.read_until("\n", timeout=5) )
