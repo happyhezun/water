@@ -36,3 +36,38 @@ print(str[2:5])
 vscode列选择：Shift+Alit+鼠标左键拖动
 字符串的操作主要是赋值、拼接、截取。
 列表可以完成大多数集合类的数据结构实现、可变的数组
+
+list = ['abcd', 786, 2.23, 'imooc', 70.2]
+tinylist = [123, 'imooc']
+
+print(list)
+print(list[0])
+print(list[1:3])
+print(list[2:])
+print(tinylist*2)
+print(list + tinylist)
+
+tinylist.append("569")
+print(tinylilst)
+
+tuple 只读的列表
+
+student = {"Tom", "Jim", "Jack", "Mary", "Rose"}
+print( student )
+if "Rose" in student:
+    print( "Rose在集合中" )
+else:
+    print("Rose不在集合中")
+
+a = set("abrasdfsdfs")
+b = set("sdafwerdfd")
+
+print( a )
+print( b )
+
+print(a - b)
+print(a | b)
+print(a & b)
+print(a ^ b)
+
+字典是无序的
