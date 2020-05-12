@@ -520,3 +520,51 @@ pexpect向子程序发送指令
 send()、sendline()多加一个回车符、sendcontrol(char) 发送控制符
 
 pexpect 依赖终端命令的方式、不同的ssh登录环境兼容较差
+
+pip install paramiko
+
+import paramiko
+jssh = paramiko.SSHClient()
+paramiko.Transport()
+
+jssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+jssh.connect("192.168.1.101", '22', 'test', '123456')
+ 
+密钥的加载
+key = paramiko.RSAKey.from_private_key_file('/tmp/id_rsa')
+jssh.connect('192.168.1.101','22', 'test', pkey=Key登录列表)
+stdin, stdout, stderr = jssh.exec_command("ls /tmp")
+stdout.read()
+
+pip install PyYAML
+myconf = yaml。load(file('/a.yaml'))
+type(myconf)
+
+
+main.py -> snmp_begin->(主机扫描、端口存活扫描、SSH登录探测扫描系统信息收集、扫描列表(邮件、打印、日志))
+
+
+
+snmpwalk -v 2c -c public 192.168.1.2 iso.3.6.(oid值)
+pip install pysnmp
+
+from pysnmp.entity.rfc3413.oneliner import cmdgen
+cg = cmdgen.CommandGenerator()
+cg.getCmd(
+    cmdgen.CommunityData('snmpt', 'public', 0),
+    cmdgen.UdpTransportTarget(('192.168.1.108', 161)),
+    '1.3.6.1.2.1.1.1.0'(官方网站查询值)
+)
+
+snmpwalk -v 2c -c public 127.0.0.1
+
+
+API 与 SDK 的区别：
+api是单一
+sdk是对api的封装，对客户端不必关系api具体的实现。
+
+pyvmomi==6.5.0.2017.5.post1
+
+'''
+自己的学习小方法： 对着源代码敲自己的代码，边看笔记。
+'''
