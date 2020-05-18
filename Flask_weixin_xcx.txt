@@ -50,7 +50,7 @@ def hello():
 main.py
 
 from flask import Flask
-from imooc imooc route_imooc
+from imooc import route_imooc
 
 app = Flask(__name__)
 app.register_blueprint(route_imooc, url_prefix='/imooc')
@@ -78,9 +78,9 @@ class UrlManager(object):
     def buildStaticUrl( path )
     #版本管理
         path = path + "?ver=" + "201805021500"
-        return UrlManager.buildStaticUrl(path)
+        return UrlManager.buildUrl(path)
 
-from common.libs.UrlManger
+from common.libs.UrlManger import UrlManager
 
 @app.route("/")
 def hello_world():
@@ -108,11 +108,6 @@ def page_not_found( error ):
     app.logger.error( error )
     return "This page does not exist", 404
 
-'''
-设置ubuntu分辨率
-https://www.linuxidc.com/Linux/2017-11/148439.htm
-https://www.heartnn.com/2019/11/21/ubuntu-display-resolution-on-vmware/
-'''
 数据库ORM
 pip install flask_sqlalchemy
 pip install mysqlclient

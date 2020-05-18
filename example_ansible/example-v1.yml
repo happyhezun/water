@@ -1,0 +1,6 @@
+---
+  - hosts: example
+    vars_file:
+      - varss.yml
+    tasks:
+      - debug: msg = "Variable 'foo' is set to {{ foo }}"

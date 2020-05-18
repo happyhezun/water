@@ -1,0 +1,2 @@
+ansible-playbook example.yml --extra-vars "@even_more_vars.json"
+ansible-playbook example.yml --extra-vars "@even_more_vars.yml"
