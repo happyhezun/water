@@ -1,0 +1,65 @@
+HTTP请求：
+请求方法：
+请求参数：
+headers:
+cookies:
+请求端的信息：
+
+Django Request对象
+请求方法：- Request对象的method属性
+客户端信息：- Request对象的META属性
+Cookies: - Request 的 COOKIES 属性
+请求参数： - Request 对象中的 QueryDict
+
+backend_ch1_sec1
+apis
+
+views
+
+urls.py
+path('weather/', include('apis.urls))
+
+urls.py
+from django.urls import path
+from .views import weather
+
+urlpatterns = [
+    path('', wather.helloworld),
+]
+注释csrf中间件。
+
+wather.py
+
+from django.http import HttpResponse
+
+def helloworld(request):
+    print ('request method:', request.method)
+    print ('request META', request.META)
+    print ('request cookies', request.COOKIES)
+    print ('request QueryDict', request.GETs)
+    return HttpResponse('ok')
+
+http://localhost:8000/wather/?info=test
+
+HTTP应答
+状态码
+应答内容
+内容格式
+
+Django Response对象
+
+状态码 - Response对象的status属性
+应答内容 - Response对象的content属性
+格式：
+延伸的Response子类 - (JsonResponse 、 FileResponse)
+
+HttpResponse(content="ok", status=200)
+HttpResponse(content="Hello Django Response", status=201)
+
+m = {
+    "message": "Hello Django Response",
+}
+
+return JonseResponse(data=m, safe=False, status=200)
+
+天气查询：
