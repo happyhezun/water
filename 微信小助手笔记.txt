@@ -63,3 +63,46 @@ m = {
 return JonseResponse(data=m, safe=False, status=200)
 
 天气查询：
+
+
+Django url 配置
+
+Django 处理请求的寻址逻辑
+项目层面: 根路由模块 - urlpatterns
+应用层面： 子路由模块 - urlpatterns
+视图层面：匹配成功调用指定视图
+
+setting.py
+ROOT_URLCONF 
+
+Django的RESTful url设计
+API接口的RESTRESTful设计
+说明接口类型(视图、模版、API)
+/view
+/template
+/api
+接口的版本
+/view/v1
+/template/v1.2
+/api/v2.0.1
+
+增删改查的RESTful设计
+HTTP请求中的GET、POST、PUT、DELETE方法
+GET: 从服务器获取资源
+POST: 在服务器新建一个资源
+PUT: 在服务器更新资源
+DELETE: 从服务器中删除资源
+GET: /api/v1.0/user
+url中过滤信息 (分页、指定)
+GET: /api/v1.0/user/1
+*GET：/api/v1.0/user?page=1
+
+GET: /api/v1.0/user?name='imooc'
+说明资源类型
+GET: /api/v1.0/resource/image?md5=<md5>
+GET: /api/v1.0/resource/doc?md5=<md5>
+
+/api/v1.0.2/user?page=1
+
+资源路径的RESTful设计
+
